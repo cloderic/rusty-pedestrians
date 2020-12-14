@@ -21,6 +21,7 @@ impl AgentNeighborhood {
       neighbors_distances: [0.0; 10],
     }
   }
+  #[allow(dead_code)]
   pub fn neighbors_len(&self) -> usize {
     self.neighbors_len
   }
@@ -33,6 +34,7 @@ impl AgentNeighborhood {
   pub fn get_neighbors_radii(&self) -> &[f64] {
     &self.neighbors_radii[0..self.neighbors_len]
   }
+  #[allow(dead_code)]
   pub fn get_neighbors_distances(&self) -> &[f64] {
     &self.neighbors_distances[0..self.neighbors_len]
   }

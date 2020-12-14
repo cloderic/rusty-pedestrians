@@ -1,5 +1,7 @@
 # Rusty Pedestrians
 
+[![engine](https://github.com/cloderic/rusty-pedestrians/workflows/engine/badge.svg?branch=main)](https://github.com/cloderic/rusty-pedestrians/actions)
+
 🚧
 
 Rust pedestrian autonomous navigation engine with a webapp showcase.

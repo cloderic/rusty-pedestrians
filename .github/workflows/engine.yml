@@ -1,4 +1,4 @@
-name: engine
+name: Engine CI
 
 on:
   push:

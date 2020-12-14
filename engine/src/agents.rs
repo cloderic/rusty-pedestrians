@@ -40,30 +40,35 @@ impl Agents {
   pub fn get_targets(&self) -> &[Vec2] {
     &self.targets
   }
+  #[allow(dead_code)]
   pub fn set_targets(&mut self, new_targets: &[Vec2]) {
     self.targets = new_targets.to_vec();
   }
   pub fn get_desired_speeds(&self) -> &[f64] {
     &self.desired_speeds
   }
+  #[allow(dead_code)]
   pub fn set_desired_speeds(&mut self, new_desired_speeds: &[f64]) {
     self.desired_speeds = new_desired_speeds.to_vec();
   }
   pub fn get_maximum_speeds(&self) -> &[f64] {
     &self.maximum_speeds
   }
+  #[allow(dead_code)]
   pub fn set_maximum_speeds(&mut self, new_maximum_speeds: &[f64]) {
     self.maximum_speeds = new_maximum_speeds.to_vec();
   }
   pub fn get_maximum_accelerations(&self) -> &[f64] {
     &self.maximum_accelerations
   }
+  #[allow(dead_code)]
   pub fn set_maximum_accelerations(&mut self, new_maximum_accelerations: &[f64]) {
     self.maximum_accelerations = new_maximum_accelerations.to_vec();
   }
   pub fn get_radii(&self) -> &[f64] {
     &self.radii
   }
+  #[allow(dead_code)]
   pub fn set_radii(&mut self, new_radii: &[f64]) {
     self.radii = new_radii.to_vec();
   }
@@ -80,15 +85,17 @@ impl Agents {
     self.radii.push(agent.radius);
   }
   pub fn retrieve_agent(&self, idx_agent: usize) -> Agent {
-    Agent {
-      position: self.positions[idx_agent],
-      velocity: self.velocities[idx_agent],
-      target: self.targets[idx_agent],
-      desired_speed: self.desired_speeds[idx_agent],
-      maximum_speed: self.maximum_speeds[idx_agent],
-      maximum_acceleration: self.maximum_accelerations[idx_agent],
-      radius: self.radii[idx_agent],
-    }
+    Agent::new()
+      .position(self.positions[idx_agent].x(), self.positions[idx_agent].y())
+      .velocity(
+        self.velocities[idx_agent].x(),
+        self.velocities[idx_agent].y(),
+      )
+      .target(self.targets[idx_agent].x(), self.targets[idx_agent].y())
+      .desired_speed(self.desired_speeds[idx_agent])
+      .maximum_speed(self.maximum_speeds[idx_agent])
+      .maximum_acceleration(self.maximum_accelerations[idx_agent])
+      .radius(self.radii[idx_agent])
   }
 }
 

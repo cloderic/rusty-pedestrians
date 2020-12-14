@@ -17,11 +17,13 @@ impl AntipodalCircleScenario {
     }
   }
 
+  #[allow(dead_code)]
   pub fn agents_count(mut self, agents_count: usize) -> Self {
     self.agents_count = agents_count;
     self
   }
 
+  #[allow(dead_code)]
   pub fn radius(mut self, radius: f64) -> Self {
     self.radius = radius;
     self
