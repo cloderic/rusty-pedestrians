@@ -38,7 +38,7 @@ jobs:
         with:
           name: rusty-pedestrians-engine
           path: engine/pkg/
-  build_webapp:
+  build:
     name: Build webapp
     runs-on: ubuntu-latest
     needs: build_wasm_package
@@ -62,4 +62,19 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: rusty-pedestrians-webapp
-          path: webap/build/
+          path: webapp/build
+  deploy:
+    name: Deploy webapp
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download webapp
+        uses: actions/download-artifact@v2
+        with:
+          name: rusty-pedestrians-webapp
+          path: public
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          publish_dir: ./public

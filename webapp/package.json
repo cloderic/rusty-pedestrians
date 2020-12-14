@@ -2,6 +2,7 @@
   "name": "rusty-pedestrians-webapp",
   "version": "0.1.0",
   "author": "Clodéric Mars <cloderic@hey.com>",
+  "homepage": "https://cloderic.github.io/rusty-pedestrians/",
   "license": "MIT",
   "dependencies": {
     "@emotion/core": "^10.0.35",
