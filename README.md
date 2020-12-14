@@ -1,6 +1,7 @@
 # Rusty Pedestrians
 
-[![engine](https://github.com/cloderic/rusty-pedestrians/workflows/engine/badge.svg?branch=main)](https://github.com/cloderic/rusty-pedestrians/actions)
+[![Engine CI](https://github.com/cloderic/rusty-pedestrians/workflows/Engine%20CI/badge.svg)](https://github.com/cloderic/rusty-pedestrians/actions)
+[![Webapp CI](https://github.com/cloderic/rusty-pedestrians/workflows/Webapp%20CI/badge.svg)](https://github.com/cloderic/rusty-pedestrians/actions)
 
 🚧
 
