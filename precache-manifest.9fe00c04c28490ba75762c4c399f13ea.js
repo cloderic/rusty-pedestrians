@@ -4,7 +4,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/rusty-pedestrians/bc2b146859b0a0fb963c.module.wasm"
   },
   {
-    "revision": "e05c3ff9864aa9a9364b2429c433ffa1",
+    "revision": "b62cc5bcba62a0c1c73af0a6058e5d49",
     "url": "/rusty-pedestrians/index.html"
   },
   {
