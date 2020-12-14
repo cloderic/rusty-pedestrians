@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.js": "/static/js/main.b2ec3dab.chunk.js",
-    "main.js.map": "/static/js/main.b2ec3dab.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.0eb2846a.js",
-    "runtime-main.js.map": "/static/js/runtime-main.0eb2846a.js.map",
-    "static/css/2.764ccc25.chunk.css": "/static/css/2.764ccc25.chunk.css",
-    "static/js/2.c02bd860.chunk.js": "/static/js/2.c02bd860.chunk.js",
-    "static/js/2.c02bd860.chunk.js.map": "/static/js/2.c02bd860.chunk.js.map",
-    "static/js/3.18504a70.chunk.js": "/static/js/3.18504a70.chunk.js",
-    "bc2b146859b0a0fb963c.module.wasm": "/bc2b146859b0a0fb963c.module.wasm",
-    "static/js/3.18504a70.chunk.js.map": "/static/js/3.18504a70.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.1101c9481f7bd97849069600c75db719.js": "/precache-manifest.1101c9481f7bd97849069600c75db719.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/2.764ccc25.chunk.css.map": "/static/css/2.764ccc25.chunk.css.map",
-    "static/js/2.c02bd860.chunk.js.LICENSE.txt": "/static/js/2.c02bd860.chunk.js.LICENSE.txt"
+    "main.js": "/rusty-pedestrians/static/js/main.eedbf497.chunk.js",
+    "main.js.map": "/rusty-pedestrians/static/js/main.eedbf497.chunk.js.map",
+    "runtime-main.js": "/rusty-pedestrians/static/js/runtime-main.9afab87b.js",
+    "runtime-main.js.map": "/rusty-pedestrians/static/js/runtime-main.9afab87b.js.map",
+    "static/css/2.764ccc25.chunk.css": "/rusty-pedestrians/static/css/2.764ccc25.chunk.css",
+    "static/js/2.c02bd860.chunk.js": "/rusty-pedestrians/static/js/2.c02bd860.chunk.js",
+    "static/js/2.c02bd860.chunk.js.map": "/rusty-pedestrians/static/js/2.c02bd860.chunk.js.map",
+    "static/js/3.18504a70.chunk.js": "/rusty-pedestrians/static/js/3.18504a70.chunk.js",
+    "bc2b146859b0a0fb963c.module.wasm": "/rusty-pedestrians/bc2b146859b0a0fb963c.module.wasm",
+    "static/js/3.18504a70.chunk.js.map": "/rusty-pedestrians/static/js/3.18504a70.chunk.js.map",
+    "index.html": "/rusty-pedestrians/index.html",
+    "precache-manifest.50c979e357cbda1625130b130657c152.js": "/rusty-pedestrians/precache-manifest.50c979e357cbda1625130b130657c152.js",
+    "service-worker.js": "/rusty-pedestrians/service-worker.js",
+    "static/css/2.764ccc25.chunk.css.map": "/rusty-pedestrians/static/css/2.764ccc25.chunk.css.map",
+    "static/js/2.c02bd860.chunk.js.LICENSE.txt": "/rusty-pedestrians/static/js/2.c02bd860.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.0eb2846a.js",
+    "static/js/runtime-main.9afab87b.js",
     "static/css/2.764ccc25.chunk.css",
     "static/js/2.c02bd860.chunk.js",
-    "static/js/main.b2ec3dab.chunk.js"
+    "static/js/main.eedbf497.chunk.js"
   ]
 }
