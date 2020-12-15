@@ -44,7 +44,12 @@ impl Scenario for AntipodalCircleScenario {
       let from_y = self.radius * angle.sin();
       let to_x = -from_x;
       let to_y = -from_y;
-      agents.create_agent(Agent::new().position(from_x, from_y).target(to_x, to_y));
+      agents.create_agent(
+        Agent::new()
+          .position(from_x, from_y)
+          .direction(to_x - from_x, to_y - from_y)
+          .target(to_x, to_y),
+      );
       agents
     })
   }

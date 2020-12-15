@@ -46,11 +46,11 @@ const App = ({ universe }) => {
   });
 
   const render = useCallback(() => {
-    const agents = chunk(universe.render(), 5).map(
-      ([posX, posY, velX, velY, r], index) => ({
+    const agents = chunk(universe.render(), 7).map(
+      ([posX, posY, dirX, dirY, velX, velY, r], index) => ({
         index,
         position: { x: posX, y: posY },
-        direction: { x: velX, y: velY },
+        direction: { x: dirX, y: dirY },
         radius: r,
         handleClick: () => {
           setSelectedAgentIdx(index);

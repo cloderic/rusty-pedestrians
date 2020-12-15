@@ -34,22 +34,24 @@ pub fn test_simple_antipodal_scenario() {
     .render()
     .iter()
     .zip(vec![
-      10.0, 0.0, 0.0, 0.0, 0.35, 0.0, 10.0, 0.0, 0.0, 0.35, -10.0, 0., 0.0, 0.0, 0.35, 0.0, -10.,
-      0.0, 0.0,
+      10.0, 0.0, -1.0, 0.0, 0.0, 0.0, 0.35, 0.0, 10.0, 0.0, -1.0, 0.0, 0.0, 0.35, -10.0, 0., 1.0,
+      0.0, 0.0, 0.0, 0.35, 0.0, -10., 0.0, 1.0, 0.0, 0.0, 0.35,
     ])
     .for_each(|(value, expected)| assert_approx_eq!(value, expected));
 
   (0..100).for_each(|_| {
     universe.update(0.25);
-    let debug_info = universe.render_debug_info(0);
+    let _debug_info = universe.render_debug_info(0);
   });
 
-  universe
-    .render()
-    .iter()
-    .zip(vec![
-      -10.0, 0.0, 0.0, 0.0, 0.35, 0.0, -10.0, 0.0, 0.0, 0.35, 10.0, 0., 0.0, 0.0, 0.35, 0.0, 10.,
-      0.0, 0.0,
-    ])
-    .for_each(|(value, expected)| assert_approx_eq!(value, expected));
+  let end_state = universe.render();
+  // All should have reached their target
+  assert_approx_eq!(end_state[0], -10.);
+  assert_approx_eq!(end_state[1], 0.);
+  assert_approx_eq!(end_state[7], 0.);
+  assert_approx_eq!(end_state[8], -10.);
+  assert_approx_eq!(end_state[14], 10.);
+  assert_approx_eq!(end_state[15], 0.);
+  assert_approx_eq!(end_state[21], 0.);
+  assert_approx_eq!(end_state[22], 10.);
 }

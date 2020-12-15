@@ -2,6 +2,7 @@ mod agent;
 mod agent_debug_info;
 mod agents;
 mod apply_velocity_navigator;
+mod look_where_you_go_navigator;
 mod neighborhood;
 mod orca;
 mod reach_target_navigator;
@@ -71,6 +72,7 @@ impl Universe {
     );
     self.agents.set_velocities(&orca::orca_navigator(
       self.agents.get_positions(),
+      self.agents.get_directions(),
       &reach_target_navigator::reach_target_navigator(
         self.agents.get_positions(),
         self.agents.get_velocities(),
@@ -94,15 +96,23 @@ impl Universe {
         dt,
       ));
 
+    self
+      .agents
+      .set_directions(&look_where_you_go_navigator::look_where_you_go_navigator(
+        self.agents.get_directions(),
+        self.agents.get_velocities(),
+      ));
+
     self.last_dt = dt;
   }
   pub fn render(&self) -> Box<[f64]> {
     izip!(
       self.agents.get_positions().iter(),
+      self.agents.get_directions().iter(),
       self.agents.get_velocities().iter(),
       self.agents.get_radii().iter()
     )
-    .flat_map(|(p, v, &r)| vec![p.x(), p.y(), v.x(), v.y(), r])
+    .flat_map(|(p, d, v, &r)| vec![p.x(), p.y(), d.x(), d.y(), v.x(), v.y(), r])
     .collect::<Vec<f64>>()
     .into_boxed_slice()
   }
@@ -172,21 +182,23 @@ mod tests {
       .render()
       .iter()
       .zip(vec![
-        10.0, 0.0, 0.0, 0.0, 0.35, 0.0, 10.0, 0.0, 0.0, 0.35, -10.0, 0., 0.0, 0.0, 0.35, 0.0, -10.,
-        0.0, 0.0,
+        10.0, 0.0, -1.0, 0.0, 0.0, 0.0, 0.35, 0.0, 10.0, 0.0, -1.0, 0.0, 0.0, 0.35, -10.0, 0., 1.0,
+        0.0, 0.0, 0.0, 0.35, 0.0, -10., 0.0, 1.0, 0.0, 0.0, 0.35,
       ])
       .for_each(|(value, expected)| assert_approx_eq!(value, expected));
     (0..100).for_each(|_| {
       universe.update(0.25);
       universe.render_debug_info(0);
     });
-    universe
-      .render()
-      .iter()
-      .zip(vec![
-        -10.0, 0.0, 0.0, 0.0, 0.35, 0.0, -10.0, 0.0, 0.0, 0.35, 10.0, 0., 0.0, 0.0, 0.35, 0.0, 10.,
-        0.0, 0.0,
-      ])
-      .for_each(|(value, expected)| assert_approx_eq!(value, expected));
+    let end_state = universe.render();
+    // All should have reached their target
+    assert_approx_eq!(end_state[0], -10.);
+    assert_approx_eq!(end_state[1], 0.);
+    assert_approx_eq!(end_state[7], 0.);
+    assert_approx_eq!(end_state[8], -10.);
+    assert_approx_eq!(end_state[14], 10.);
+    assert_approx_eq!(end_state[15], 0.);
+    assert_approx_eq!(end_state[21], 0.);
+    assert_approx_eq!(end_state[22], 10.);
   }
 }

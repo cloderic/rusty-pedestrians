@@ -1,6 +1,6 @@
 use serde::Serialize;
 use std::fmt;
-use std::ops::{Add, Div, Mul, Neg, Sub};
+use std::ops::{Add, Div, DivAssign, Mul, MulAssign, Neg, Sub};
 
 #[derive(Clone, Copy, Debug, PartialEq, Serialize)]
 pub struct Vec2 {
@@ -116,6 +116,13 @@ impl Mul<f64> for Vec2 {
   }
 }
 
+impl MulAssign<f64> for Vec2 {
+  fn mul_assign(&mut self, scalar: f64) {
+    self.x *= scalar;
+    self.y *= scalar;
+  }
+}
+
 impl Mul<Vec2> for f64 {
   type Output = Vec2;
 
@@ -143,6 +150,13 @@ impl Div<f64> for Vec2 {
       x: self.x / scalar,
       y: self.y / scalar,
     }
+  }
+}
+
+impl DivAssign<f64> for Vec2 {
+  fn div_assign(&mut self, scalar: f64) {
+    self.x /= scalar;
+    self.y /= scalar;
   }
 }
 

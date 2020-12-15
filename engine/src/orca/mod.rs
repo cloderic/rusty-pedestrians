@@ -8,8 +8,10 @@ use crate::vec2::Vec2;
 
 use itertools::izip;
 
+#[allow(clippy::too_many_arguments)]
 pub fn orca_navigator(
   positions: &[Vec2],
+  directions: &[Vec2],
   desired_velocities: &[Vec2],
   radii: &[f64],
   maximum_speeds: &[f64],
@@ -26,37 +28,40 @@ pub fn orca_navigator(
       time_horizon,
       dt
     ),
+    directions,
     desired_velocities,
     maximum_speeds,
   )
-  .map(|(orca_constraints, &desired_velocity, &maximum_speed)| {
-    let desired_speed = desired_velocity.norm();
-    let desired_direction = if desired_speed < f64::EPSILON {
-      Vec2::new(1.0, 0.0) // Ideally should use the orientation of the pedestrian
-    } else {
-      desired_velocity / desired_speed
-    };
+  .map(
+    |(orca_constraints, &direction, &desired_velocity, &maximum_speed)| {
+      let desired_speed = desired_velocity.norm();
+      let desired_direction = if desired_speed < f64::EPSILON {
+        direction
+      } else {
+        desired_velocity / desired_speed
+      };
 
-    match linear_program::solve_linear_program(
-      &desired_direction,
-      desired_speed,
-      &orca_constraints,
-      true,
-    ) {
-      Some(corrected_velocity) => corrected_velocity,
-      // No solution, let's try to accelerate
-      None => match linear_program::solve_linear_program(
+      match linear_program::solve_linear_program(
         &desired_direction,
-        maximum_speed,
+        desired_speed,
         &orca_constraints,
-        false,
+        true,
       ) {
         Some(corrected_velocity) => corrected_velocity,
-        // No solution, let's continue on our merry way
-        None => desired_direction.normalize_to(0.9 * desired_speed),
-      },
-    }
-  })
+        // No solution, let's try to accelerate
+        None => match linear_program::solve_linear_program(
+          &desired_direction,
+          maximum_speed,
+          &orca_constraints,
+          false,
+        ) {
+          Some(corrected_velocity) => corrected_velocity,
+          // No solution, let's continue on our merry way
+          None => desired_direction.normalize_to(0.9 * desired_speed),
+        },
+      }
+    },
+  )
   .collect()
 }
 
@@ -74,6 +79,7 @@ mod tests {
 
     let updated_velocities: Vec<Vec2> = orca_navigator(
       agents.get_positions(),
+      agents.get_directions(),
       agents.get_velocities(),
       agents.get_radii(),
       agents.get_maximum_speeds(),
@@ -99,6 +105,7 @@ mod tests {
 
     let updated_velocities: Vec<Vec2> = orca_navigator(
       agents.get_positions(),
+      agents.get_directions(),
       agents.get_velocities(),
       agents.get_radii(),
       agents.get_maximum_speeds(),
@@ -124,6 +131,7 @@ mod tests {
 
     orca_navigator(
       agents.get_positions(),
+      agents.get_directions(),
       agents.get_velocities(),
       agents.get_radii(),
       agents.get_maximum_speeds(),

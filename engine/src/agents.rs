@@ -5,6 +5,7 @@ use std::vec::Vec;
 #[derive(Clone, Debug, PartialEq)]
 pub struct Agents {
   positions: Vec<Vec2>,
+  directions: Vec<Vec2>,
   velocities: Vec<Vec2>,
   targets: Vec<Vec2>,
   desired_speeds: Vec<f64>,
@@ -17,6 +18,7 @@ impl Agents {
   pub fn new() -> Self {
     Agents {
       positions: Vec::new(),
+      directions: Vec::new(),
       velocities: Vec::new(),
       targets: Vec::new(),
       desired_speeds: Vec::new(),
@@ -30,6 +32,12 @@ impl Agents {
   }
   pub fn set_positions(&mut self, new_positions: &[Vec2]) {
     self.positions = new_positions.to_vec();
+  }
+  pub fn get_directions(&self) -> &[Vec2] {
+    &self.directions
+  }
+  pub fn set_directions(&mut self, new_directions: &[Vec2]) {
+    self.directions = new_directions.to_vec();
   }
   pub fn get_velocities(&self) -> &[Vec2] {
     &self.velocities
@@ -78,6 +86,7 @@ impl Agents {
   pub fn create_agent(&mut self, agent: Agent) {
     self.positions.push(agent.position);
     self.velocities.push(agent.velocity);
+    self.directions.push(agent.direction);
     self.targets.push(agent.target);
     self.desired_speeds.push(agent.desired_speed);
     self.maximum_speeds.push(agent.maximum_speed);
@@ -87,6 +96,10 @@ impl Agents {
   pub fn retrieve_agent(&self, idx_agent: usize) -> Agent {
     Agent::new()
       .position(self.positions[idx_agent].x(), self.positions[idx_agent].y())
+      .direction(
+        self.directions[idx_agent].x(),
+        self.directions[idx_agent].y(),
+      )
       .velocity(
         self.velocities[idx_agent].x(),
         self.velocities[idx_agent].y(),
