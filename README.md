@@ -5,7 +5,8 @@
 
 🚧
 
-Rust pedestrian autonomous navigation engine with a webapp showcase.
+Rust pedestrian autonomous navigation engine with a webapp showcase, deployed at
+**<https://cloderic.github.io/rusty-pedestrians/>**
 
 ## Engine
 
