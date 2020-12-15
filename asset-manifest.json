@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.js": "/rusty-pedestrians/static/js/main.2aa8eadb.chunk.js",
-    "main.js.map": "/rusty-pedestrians/static/js/main.2aa8eadb.chunk.js.map",
-    "runtime-main.js": "/rusty-pedestrians/static/js/runtime-main.e0e9c93d.js",
-    "runtime-main.js.map": "/rusty-pedestrians/static/js/runtime-main.e0e9c93d.js.map",
+    "main.js": "/rusty-pedestrians/static/js/main.3ee42d0a.chunk.js",
+    "main.js.map": "/rusty-pedestrians/static/js/main.3ee42d0a.chunk.js.map",
+    "runtime-main.js": "/rusty-pedestrians/static/js/runtime-main.992ea8ec.js",
+    "runtime-main.js.map": "/rusty-pedestrians/static/js/runtime-main.992ea8ec.js.map",
     "static/css/2.764ccc25.chunk.css": "/rusty-pedestrians/static/css/2.764ccc25.chunk.css",
     "static/js/2.1b805170.chunk.js": "/rusty-pedestrians/static/js/2.1b805170.chunk.js",
     "static/js/2.1b805170.chunk.js.map": "/rusty-pedestrians/static/js/2.1b805170.chunk.js.map",
-    "static/js/3.9347c1bc.chunk.js": "/rusty-pedestrians/static/js/3.9347c1bc.chunk.js",
-    "65efbf9a2b5f104d3112.module.wasm": "/rusty-pedestrians/65efbf9a2b5f104d3112.module.wasm",
-    "static/js/3.9347c1bc.chunk.js.map": "/rusty-pedestrians/static/js/3.9347c1bc.chunk.js.map",
+    "static/js/3.371ec1be.chunk.js": "/rusty-pedestrians/static/js/3.371ec1be.chunk.js",
+    "895b3b778e60b35251dd.module.wasm": "/rusty-pedestrians/895b3b778e60b35251dd.module.wasm",
+    "static/js/3.371ec1be.chunk.js.map": "/rusty-pedestrians/static/js/3.371ec1be.chunk.js.map",
     "index.html": "/rusty-pedestrians/index.html",
-    "precache-manifest.f932473ca91949e501cfb65c91e19382.js": "/rusty-pedestrians/precache-manifest.f932473ca91949e501cfb65c91e19382.js",
+    "precache-manifest.199724d912ca24139a9f2a23f5b8e2c1.js": "/rusty-pedestrians/precache-manifest.199724d912ca24139a9f2a23f5b8e2c1.js",
     "service-worker.js": "/rusty-pedestrians/service-worker.js",
     "static/css/2.764ccc25.chunk.css.map": "/rusty-pedestrians/static/css/2.764ccc25.chunk.css.map",
     "static/js/2.1b805170.chunk.js.LICENSE.txt": "/rusty-pedestrians/static/js/2.1b805170.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.e0e9c93d.js",
+    "static/js/runtime-main.992ea8ec.js",
     "static/css/2.764ccc25.chunk.css",
     "static/js/2.1b805170.chunk.js",
-    "static/js/main.2aa8eadb.chunk.js"
+    "static/js/main.3ee42d0a.chunk.js"
   ]
 }
