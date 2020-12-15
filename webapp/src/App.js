@@ -47,6 +47,7 @@ const App = ({ universe }) => {
       ([posX, posY, velX, velY, r], index) => ({
         index,
         position: { x: posX, y: posY },
+        direction: { x: velX, y: velY },
         radius: r,
         select: () => {
           setSelectedAgentIdx(index);
@@ -100,10 +101,11 @@ const App = ({ universe }) => {
       <Container>
         <Canvas camera={{ position: [0, 80, 0], fov: 10 }} shadowMap={true}>
           <Environment color={GREY} />
-          {agents.map(({ index, position, radius, select }) => (
+          {agents.map(({ index, position, direction, radius, select }) => (
             <Pedestrian
               key={index}
               position={position}
+              direction={direction}
               radius={radius}
               onClick={select}
               selected={index === selectedAgentIdx}
