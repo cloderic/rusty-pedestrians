@@ -22,6 +22,7 @@ const createAlphaMap = (size = 512) => {
 
 const DebugHalfplane = ({
   origin,
+  altitude,
   direction,
   color,
   width = 0.5,
@@ -30,7 +31,7 @@ const DebugHalfplane = ({
   const alphaMap = useMemo(() => createAlphaMap(), []);
   return (
     <group
-      position={[origin.x, 0, origin.y]}
+      position={[origin.x, altitude, origin.y]}
       rotation={[0, Math.atan2(-direction.y, direction.x), 0]}
     >
       <mesh

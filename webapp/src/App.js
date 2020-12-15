@@ -38,6 +38,9 @@ const useToggle = (initialValue = false) => {
 
 const App = ({ universe }) => {
   const [selectedAgentIdx, setSelectedAgentIdx] = useState(null);
+  const handleClearSelection = useCallback(() => {
+    setSelectedAgentIdx(null);
+  }, [setSelectedAgentIdx]);
   const [{ agents, agentDebugInfo }, setRenderResult] = useState({
     agents: [],
   });
@@ -49,7 +52,7 @@ const App = ({ universe }) => {
         position: { x: posX, y: posY },
         direction: { x: velX, y: velY },
         radius: r,
-        select: () => {
+        handleClick: () => {
           setSelectedAgentIdx(index);
         },
       })
@@ -99,15 +102,19 @@ const App = ({ universe }) => {
     <>
       <Stylesheet />
       <Container>
-        <Canvas camera={{ position: [0, 80, 0], fov: 10 }} shadowMap={true}>
+        <Canvas
+          camera={{ position: [0, 80, 0], fov: 10 }}
+          shadowMap={true}
+          onPointerMissed={handleClearSelection}
+        >
           <Environment color={GREY} />
-          {agents.map(({ index, position, direction, radius, select }) => (
+          {agents.map(({ index, position, direction, radius, handleClick }) => (
             <Pedestrian
               key={index}
               position={position}
               direction={direction}
               radius={radius}
-              onClick={select}
+              onClick={handleClick}
               selected={index === selectedAgentIdx}
             />
           ))}
