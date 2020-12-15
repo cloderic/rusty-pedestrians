@@ -4,7 +4,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/rusty-pedestrians/895b3b778e60b35251dd.module.wasm"
   },
   {
-    "revision": "2ee14918c34cfb7b4496171d80f4f891",
+    "revision": "8311e3211bd1a08a4ad804736be1e047",
     "url": "/rusty-pedestrians/index.html"
   },
   {
@@ -24,8 +24,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/rusty-pedestrians/static/js/3.371ec1be.chunk.js"
   },
   {
-    "revision": "7c27722c87b76d6a8a2d",
-    "url": "/rusty-pedestrians/static/js/main.3ee42d0a.chunk.js"
+    "revision": "7af65acaebfe106365a5",
+    "url": "/rusty-pedestrians/static/js/main.f5a1c19f.chunk.js"
   },
   {
     "revision": "29e8a0e4233ec033aae9",
