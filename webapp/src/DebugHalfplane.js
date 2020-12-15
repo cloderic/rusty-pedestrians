@@ -25,7 +25,7 @@ const DebugHalfplane = ({
   altitude,
   direction,
   color,
-  width = 0.5,
+  width = 0.15,
   length = 512,
 }) => {
   const alphaMap = useMemo(() => createAlphaMap(), []);
