@@ -31,8 +31,8 @@ const DebugHalfplane = ({
   const alphaMap = useMemo(() => createAlphaMap(), []);
   return (
     <group
-      position={[origin.x, altitude, origin.y]}
-      rotation={[0, Math.atan2(-direction.y, direction.x), 0]}
+      position={[origin.x, altitude, -origin.y]}
+      rotation={[0, Math.atan2(direction.y, direction.x), 0]}
     >
       <mesh
         position={[0, 0, -width / 2]}

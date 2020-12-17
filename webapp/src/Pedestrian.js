@@ -49,7 +49,7 @@ const Pedestrian = ({
   // Computing the color from the initial pedestrian position.
   useEffect(
     () => {
-      const p = new Vector3(position.x, 0, position.y);
+      const p = new Vector3(position.x, 0, -position.y);
       const alpha =
         Math.max(-0.5, Math.min(0.5, p.dot(COLOR_VECTOR) / COLOR_EXTENT)) + 0.5;
       setColor(mix(alpha, PEDESTRIAN_1, PEDESTRIAN_2));
@@ -58,8 +58,8 @@ const Pedestrian = ({
   );
   return (
     <group
-      position={[position.x, 0, position.y]}
-      rotation={[0, Math.atan2(-direction.y, direction.x), 0]}
+      position={[position.x, 0, -position.y]}
+      rotation={[0, Math.atan2(direction.y, direction.x), 0]}
     >
       <PedestrianMeshWithFallback
         radius={radius}

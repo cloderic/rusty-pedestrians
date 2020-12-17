@@ -14,7 +14,7 @@ const ALTITUDE_OFFSET = 0.05;
 const PedestrianDebugInfo = ({ agent, orca_constraints }) => {
   return (
     <group>
-      <group position={[agent.position.x, 0, agent.position.y]}>
+      <group position={[agent.position.x, 0, -agent.position.y]}>
         {orca_constraints.map(([origin, direction], index) => (
           <DebugHalfplane
             key={index}
@@ -28,7 +28,7 @@ const PedestrianDebugInfo = ({ agent, orca_constraints }) => {
           <Line
             points={[
               [0, 0, 0],
-              [agent.velocity.x, 0, agent.velocity.y],
+              [agent.velocity.x, 0, -agent.velocity.y],
             ]}
             color={VELOCITY_COLOR}
           />
@@ -39,7 +39,7 @@ const PedestrianDebugInfo = ({ agent, orca_constraints }) => {
           />
         </group>
       </group>
-      <group position={[agent.target.x, 0, agent.target.y]}>
+      <group position={[agent.target.x, 0, -agent.target.y]}>
         <mesh>
           <sphereBufferGeometry args={[0.1]} />
           <meshStandardMaterial color={TARGET_COLOR} />
