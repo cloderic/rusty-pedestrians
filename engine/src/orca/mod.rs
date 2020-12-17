@@ -3,9 +3,9 @@ mod linear_program;
 
 pub use compute_constraints::compute_constraints;
 
+//use crate::log;
 use crate::neighborhood::AgentNeighborhood;
 use crate::vec2::Vec2;
-
 use itertools::izip;
 
 #[allow(clippy::too_many_arguments)]
@@ -41,24 +41,41 @@ pub fn orca_navigator(
         desired_velocity / desired_speed
       };
 
+      // log!(
+      //   "$ Finding valid velocity close to {} respecting {:#?}",
+      //   desired_direction.normalize_to(desired_speed),
+      //   orca_constraints
+      // );
+
       match linear_program::solve_linear_program(
         &desired_direction,
         desired_speed,
         &orca_constraints,
         true,
       ) {
-        Some(corrected_velocity) => corrected_velocity,
+        Some(corrected_velocity) => {
+          //log!("$$ 1st solve worked -> {}", corrected_velocity);
+          corrected_velocity
+        }
         // No solution, let's try to accelerate
-        None => match linear_program::solve_linear_program(
-          &desired_direction,
-          maximum_speed,
-          &orca_constraints,
-          false,
-        ) {
-          Some(corrected_velocity) => corrected_velocity,
-          // No solution, let's continue on our merry way
-          None => desired_direction.normalize_to(0.9 * desired_speed),
-        },
+        None => {
+          match linear_program::solve_linear_program(
+            &desired_direction,
+            maximum_speed,
+            &orca_constraints,
+            false,
+          ) {
+            Some(corrected_velocity) => {
+              //log!("$$ 2nd solve worked -> {}", corrected_velocity);
+              corrected_velocity
+            }
+            // No solution, let's continue on our merry way
+            None => {
+              //log!("$$ No solution found");
+              desired_direction.normalize_to(0.9 * desired_speed)
+            }
+          }
+        }
       }
     },
   )

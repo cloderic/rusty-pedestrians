@@ -84,7 +84,7 @@ impl Universe {
       self.agents.get_radii(),
       self.agents.get_maximum_speeds(),
       &neighborhoods,
-      3.0,
+      5.0,
       dt,
     ));
 

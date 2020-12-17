@@ -16,8 +16,8 @@ import('rusty-pedestrians-engine')
     universe.load_scenario(
       JSON.stringify({
         scenario: 'AntipodalCircle',
-        agents_count: 5,
-        radius: 6.5,
+        agents_count: 9,
+        radius: 6,
       })
     );
     ReactDOM.render(
