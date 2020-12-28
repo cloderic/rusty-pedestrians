@@ -1,3 +1,4 @@
+use approx::{AbsDiffEq, RelativeEq, UlpsEq};
 use serde::Serialize;
 use std::fmt;
 use std::ops::{Add, Div, DivAssign, Mul, MulAssign, Neg, Sub};
@@ -160,22 +161,55 @@ impl DivAssign<f64> for Vec2 {
   }
 }
 
+impl AbsDiffEq for Vec2 {
+  type Epsilon = f64;
+
+  fn default_epsilon() -> Self::Epsilon {
+    f64::default_epsilon()
+  }
+
+  fn abs_diff_eq(&self, other: &Self, epsilon: Self::Epsilon) -> bool {
+    f64::abs_diff_eq(&self.x, &other.x, epsilon) && f64::abs_diff_eq(&self.y, &other.y, epsilon)
+  }
+}
+
+impl RelativeEq for Vec2 {
+  fn default_max_relative() -> Self::Epsilon {
+    f64::default_max_relative()
+  }
+
+  fn relative_eq(&self, other: &Self, epsilon: Self::Epsilon, max_relative: Self::Epsilon) -> bool {
+    f64::relative_eq(&self.x, &other.x, epsilon, max_relative)
+      && f64::relative_eq(&self.y, &other.y, epsilon, max_relative)
+  }
+}
+
+impl UlpsEq for Vec2 {
+  fn default_max_ulps() -> u32 {
+    f64::default_max_ulps()
+  }
+
+  fn ulps_eq(&self, other: &Self, epsilon: Self::Epsilon, max_ulps: u32) -> bool {
+    f64::ulps_eq(&self.x, &other.x, epsilon, max_ulps)
+      && f64::ulps_eq(&self.y, &other.y, epsilon, max_ulps)
+  }
+}
 #[cfg(test)]
 mod tests {
   use super::*;
 
-  use assert_approx_eq::assert_approx_eq;
+  use approx::assert_relative_eq;
 
   #[test]
   fn test_new() {
     let v = Vec2::new(1.0, 2.0);
-    assert_eq!(v.x, 1.0);
-    assert_eq!(v.y, 2.0);
+    assert_relative_eq!(v.x, 1.0);
+    assert_relative_eq!(v.y, 2.0);
   }
 
   #[test]
   fn test_add() {
-    assert_eq!(
+    assert_relative_eq!(
       Vec2::new(1.0, 2.0) + Vec2::new(4.0, 5.0),
       Vec2::new(5.0, 7.0)
     );
@@ -183,7 +217,7 @@ mod tests {
 
   #[test]
   fn test_sub() {
-    assert_eq!(
+    assert_relative_eq!(
       Vec2::new(1.0, 2.0) - Vec2::new(4.0, 5.0),
       Vec2::new(-3.0, -3.0)
     );
@@ -191,13 +225,13 @@ mod tests {
 
   #[test]
   fn test_mul_scalar() {
-    assert_eq!(Vec2::new(1.0, 2.0) * 2.0, Vec2::new(2.0, 4.0));
-    assert_eq!(-1. * Vec2::new(1.0, 2.0), Vec2::new(-1.0, -2.0));
+    assert_relative_eq!(Vec2::new(1.0, 2.0) * 2.0, Vec2::new(2.0, 4.0));
+    assert_relative_eq!(-1. * Vec2::new(1.0, 2.0), Vec2::new(-1.0, -2.0));
   }
 
   #[test]
   fn test_cap_norm() {
-    assert_approx_eq!(Vec2::new(1.0, 2.0).cap_norm(0.5).norm(), 0.5);
-    assert_approx_eq!(Vec2::new(0., 0.).cap_norm(0.5).norm(), 0.);
+    assert_relative_eq!(Vec2::new(1.0, 2.0).cap_norm(0.5).norm(), 0.5);
+    assert_relative_eq!(Vec2::new(0., 0.).cap_norm(0.5).norm(), 0.);
   }
 }

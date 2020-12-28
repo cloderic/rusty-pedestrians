@@ -184,7 +184,7 @@ pub fn solve_linear_program(
 #[cfg(test)]
 mod tests {
   use super::*;
-  use assert_approx_eq::assert_approx_eq;
+  use approx::assert_relative_eq;
 
   #[test]
   fn test_is_vector_belonging_to_half_plane() {
@@ -234,8 +234,7 @@ mod tests {
           )
         });
 
-        assert_approx_eq!(valid_solution.x(), expected_valid_solution.x());
-        assert_approx_eq!(valid_solution.y(), expected_valid_solution.y());
+        assert_relative_eq!(valid_solution, expected_valid_solution);
       }
       None => assert_eq!(solution, None),
     };
@@ -332,7 +331,7 @@ mod tests {
       &Vec2::new(-1.0, -2.0),
       &half_planes,
       true,
-      Some(Vec2::new(-0.579795, -2.159591)),
+      Some(Vec2::new(-0.5797958971132715, -2.159591794226543)),
     );
   }
 

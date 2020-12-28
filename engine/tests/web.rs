@@ -4,7 +4,7 @@
 
 extern crate wasm_bindgen_test;
 
-use assert_approx_eq::assert_approx_eq;
+use approx::assert_relative_eq;
 use wasm_bindgen_test::*;
 
 extern crate rusty_pedestrians_engine;
@@ -37,7 +37,7 @@ pub fn test_simple_antipodal_scenario() {
       10.0, 0.0, -1.0, 0.0, 0.0, 0.0, 0.35, 0.0, 10.0, 0.0, -1.0, 0.0, 0.0, 0.35, -10.0, 0., 1.0,
       0.0, 0.0, 0.0, 0.35, 0.0, -10., 0.0, 1.0, 0.0, 0.0, 0.35,
     ])
-    .for_each(|(value, expected)| assert_approx_eq!(value, expected));
+    .for_each(|(value, expected)| assert_relative_eq!(value, &expected, epsilon = 0.0001));
 
   (0..100).for_each(|_| {
     universe.update(0.25);
@@ -46,12 +46,12 @@ pub fn test_simple_antipodal_scenario() {
 
   let end_state = universe.render();
   // All should have reached their target
-  assert_approx_eq!(end_state[0], -10.);
-  assert_approx_eq!(end_state[1], 0.);
-  assert_approx_eq!(end_state[7], 0.);
-  assert_approx_eq!(end_state[8], -10.);
-  assert_approx_eq!(end_state[14], 10.);
-  assert_approx_eq!(end_state[15], 0.);
-  assert_approx_eq!(end_state[21], 0.);
-  assert_approx_eq!(end_state[22], 10.);
+  assert_relative_eq!(end_state[0], -10., epsilon = 0.0001);
+  assert_relative_eq!(end_state[1], 0., epsilon = 0.0001);
+  assert_relative_eq!(end_state[7], 0., epsilon = 0.0001);
+  assert_relative_eq!(end_state[8], -10., epsilon = 0.0001);
+  assert_relative_eq!(end_state[14], 10., epsilon = 0.0001);
+  assert_relative_eq!(end_state[15], 0., epsilon = 0.0001);
+  assert_relative_eq!(end_state[21], 0., epsilon = 0.0001);
+  assert_relative_eq!(end_state[22], 10., epsilon = 0.0001);
 }

@@ -93,7 +93,7 @@ mod tests {
   use super::super::super::agent::Agent;
   use super::super::super::agents::Agents;
   use super::*;
-  use assert_approx_eq::assert_approx_eq;
+  use approx::assert_relative_eq;
   #[test]
   fn two_converging_agents() {
     let mut agents = Agents::new();
@@ -131,10 +131,6 @@ mod tests {
     let (_orca_0_1_ori, orca_0_1_dir) = constraints[0][0];
     let (_orca_1_0_ori, orca_1_0_dir) = constraints[1][0];
 
-    assert_approx_eq!(orca_0_1_dir.x(), -orca_1_0_dir.x());
-    assert_approx_eq!(orca_0_1_dir.y(), -orca_1_0_dir.y());
-
-    // println!("constraints[0] = {:#?}", constraints[0]);
-    // println!("constraints[1] = {:#?}", constraints[1]);
+    assert_relative_eq!(orca_0_1_dir, -orca_1_0_dir);
   }
 }
