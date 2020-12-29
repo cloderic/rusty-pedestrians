@@ -3,6 +3,7 @@ mod agent_debug_info;
 mod agents;
 mod apply_velocity_navigator;
 mod look_where_you_go_navigator;
+mod navmesh;
 mod neighborhood;
 mod orca;
 mod reach_target_navigator;
