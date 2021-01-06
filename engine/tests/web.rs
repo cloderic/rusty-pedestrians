@@ -16,7 +16,17 @@ wasm_bindgen_test_configure!(run_in_browser);
 pub fn test_initial_universe() {
   let universe = Universe::new();
   assert_eq!(universe.count_agents(), 0);
-  assert_eq!(universe.render().len(), 0);
+  assert_eq!(universe.render_agents().len(), 0);
+
+  assert_eq!(
+    universe.render_navmesh(),
+    "v 0.000 0.000 0.0\n\
+    v 1.000 0.000 0.0\n\
+    v 1.000 1.000 0.0\n\
+    v 0.000 1.000 0.0\n\
+    f 1 2 3\n\
+    f 1 3 4\n"
+  );
 }
 
 #[wasm_bindgen_test]
@@ -31,7 +41,7 @@ pub fn test_simple_antipodal_scenario() {
   );
   assert_eq!(universe.count_agents(), 4);
   universe
-    .render()
+    .render_agents()
     .iter()
     .zip(vec![
       10.0, 0.0, -1.0, 0.0, 0.0, 0.0, 0.35, 0.0, 10.0, 0.0, -1.0, 0.0, 0.0, 0.35, -10.0, 0., 1.0,
@@ -44,7 +54,7 @@ pub fn test_simple_antipodal_scenario() {
     let _debug_info = universe.render_debug_info(0);
   });
 
-  let end_state = universe.render();
+  let end_state = universe.render_agents();
   // All should have reached their target
   assert_relative_eq!(end_state[0], -10., epsilon = 0.0001);
   assert_relative_eq!(end_state[1], 0., epsilon = 0.0001);
@@ -54,4 +64,14 @@ pub fn test_simple_antipodal_scenario() {
   assert_relative_eq!(end_state[15], 0., epsilon = 0.0001);
   assert_relative_eq!(end_state[21], 0., epsilon = 0.0001);
   assert_relative_eq!(end_state[22], 10., epsilon = 0.0001);
+
+  assert_eq!(
+    universe.render_navmesh(),
+    "v -15.000 -15.000 0.0\n\
+    v 15.000 -15.000 0.0\n\
+    v 15.000 15.000 0.0\n\
+    v -15.000 15.000 0.0\n\
+    f 1 2 3\n\
+    f 1 3 4\n"
+  );
 }

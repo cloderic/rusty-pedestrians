@@ -8,6 +8,7 @@ export const WHITE = '#FFFFFF';
 export const BLACK = '#000000';
 export const PRIMARY = '#f77976';
 export const GREY = '#808080';
+export const DARK_GREY = '#505050';
 export const PEDESTRIAN_1 = '#ff0000';
 export const PEDESTRIAN_2 = '#0000ff';
 

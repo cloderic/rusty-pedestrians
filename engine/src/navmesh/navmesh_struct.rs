@@ -19,9 +19,11 @@ pub struct Navmesh {
 }
 
 impl Navmesh {
+  #[allow(dead_code)]
   pub fn count_cells(&self) -> usize {
     self.cells_edges.len()
   }
+  #[allow(dead_code)]
   pub fn get_cell(&self, cell_index: usize) -> Option<[&Vec2; 3]> {
     match self.cells_edges.get(cell_index) {
       Some(cell_edges) => {
@@ -38,6 +40,7 @@ impl Navmesh {
       None => None,
     }
   }
+  #[allow(dead_code)]
   pub fn is_belonging_to_cell(&self, cell_index: usize, position: &Vec2) -> bool {
     match self.get_cell(cell_index) {
       Some([v1, v2, v3]) => {
@@ -106,6 +109,7 @@ impl Navmesh {
     }
   }
 
+  #[allow(dead_code)]
   pub fn locate(&self, position: &Vec2, origin_cell_index: Option<usize>) -> Option<usize> {
     if self.cells_edges.is_empty() {
       None

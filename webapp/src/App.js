@@ -1,16 +1,17 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Canvas } from 'react-three-fiber';
-import chunk from 'lodash.chunk';
 import Pedestrian from './Pedestrian';
 import PedestrianDebugInfo from './PedestrianDebugInfo';
 import Environment from './Environment';
 import Stylesheet from './Stylesheet';
 import styled from '@emotion/styled';
 import { MapControls, softShadows } from '@react-three/drei';
-import { GREY } from './Stylesheet';
+import { DARK_GREY, GREY } from './Stylesheet';
 import AccessibleEmoji from './AccessibleEmoji';
+import Navmesh from './Navmesh';
+import useSimulation from './useSimulation';
 
-const UPDATE_FREQUENCY = 60;
+const SIMULATION_FREQUENCY = 60;
 
 // Inject soft shadow shader
 softShadows();
@@ -41,62 +42,22 @@ const App = ({ universe }) => {
   const handleClearSelection = useCallback(() => {
     setSelectedAgentIdx(null);
   }, [setSelectedAgentIdx]);
-  const [{ agents, agentDebugInfo }, setRenderResult] = useState({
-    agents: [],
-  });
-
-  const render = useCallback(() => {
-    const agents = chunk(universe.render(), 7).map(
-      ([posX, posY, dirX, dirY, velX, velY, r], index) => ({
-        index,
-        position: { x: posX, y: posY },
-        direction: { x: dirX, y: dirY },
-        radius: r,
-        handleClick: () => {
-          setSelectedAgentIdx(index);
-        },
-      })
-    );
-    if (selectedAgentIdx != null) {
-      setRenderResult({
-        agents,
-        agentDebugInfo: JSON.parse(
-          universe.render_debug_info(selectedAgentIdx)
-        ),
-      });
-    } else {
-      setRenderResult({ agents });
-    }
-  }, [setRenderResult, universe, selectedAgentIdx, setSelectedAgentIdx]);
-
-  const [universeResetted, setUniverseResetted] = useState(false);
-  const resetUniverse = useCallback(() => {
-    universe.reset();
-    render();
-    setUniverseResetted(true);
-  }, [universe, render]);
-  useEffect(() => {
-    universe.reset();
-  }, [universe]);
 
   const [paused, togglePaused] = useToggle(true);
-  const computeSimulationStep = useCallback(() => {
-    universe.update(1 / UPDATE_FREQUENCY);
-    setUniverseResetted(false);
-    render();
-  }, [universe, render]);
 
-  useEffect(() => {
-    if (paused) {
-      render();
-    } else {
-      const interval = setInterval(
-        computeSimulationStep,
-        1000 / UPDATE_FREQUENCY
-      );
-      return () => clearInterval(interval);
-    }
-  }, [universe, paused, computeSimulationStep, render]);
+  const {
+    agents,
+    navmeshObj,
+    computeSimulationStep,
+    selectedAgentDebugInfo,
+    started,
+    reset,
+  } = useSimulation({
+    universe,
+    selectedAgentIdx,
+    paused,
+    simulationFrequency: SIMULATION_FREQUENCY,
+  });
 
   return (
     <>
@@ -108,25 +69,20 @@ const App = ({ universe }) => {
           onPointerMissed={handleClearSelection}
         >
           <Environment color={GREY} />
-          {agents.map(({ index, position, direction, radius, handleClick }) => (
+          {agents.map(({ index, position, direction, radius }) => (
             <Pedestrian
               key={index}
               position={position}
               direction={direction}
               radius={radius}
-              onClick={handleClick}
+              onClick={setSelectedAgentIdx.bind(null, index)}
               selected={index === selectedAgentIdx}
             />
           ))}
-          {agentDebugInfo ? <PedestrianDebugInfo {...agentDebugInfo} /> : null}
-          <mesh
-            position={[0, 0, 0]}
-            rotation={[-Math.PI / 2, 0, 0]}
-            receiveShadow
-          >
-            <planeBufferGeometry args={[100, 100, 1000, 1000]} />
-            <shadowMaterial transparent opacity={0.4} />
-          </mesh>
+          {selectedAgentDebugInfo ? (
+            <PedestrianDebugInfo {...selectedAgentDebugInfo} />
+          ) : null}
+          <Navmesh color={DARK_GREY} navmeshObj={navmeshObj} />
           <MapControls />
         </Canvas>
         <ControlBar>
@@ -144,12 +100,8 @@ const App = ({ universe }) => {
           >
             <AccessibleEmoji emoji="⏭" label="Single Step" />
           </button>
-          <button
-            onClick={resetUniverse}
-            name="reset"
-            disabled={universeResetted}
-          >
-            <AccessibleEmoji emoji="↩️" label="Restart" />
+          <button onClick={reset} name="reset" disabled={!started}>
+            <AccessibleEmoji emoji="↩️" label="Reset" />
           </button>
         </ControlBar>
       </Container>

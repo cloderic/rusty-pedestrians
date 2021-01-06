@@ -1,4 +1,4 @@
-mod navmesh;
+mod navmesh_struct;
 
-pub use navmesh::Navmesh;
-pub use navmesh::NavmeshBuilder;
+pub use navmesh_struct::Navmesh;
+pub use navmesh_struct::NavmeshBuilder;

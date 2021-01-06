@@ -7,16 +7,16 @@
   "dependencies": {
     "@emotion/core": "^10.0.35",
     "@emotion/styled": "^10.0.27",
-    "@react-three/drei": "^2.1.0",
+    "@react-three/drei": "^2.2.14",
     "lodash.chunk": "^4.2.0",
     "lodash.range": "^3.2.0",
     "normalize.css": "^8.0.1",
     "polished": "^3.6.7",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-three-fiber": "^5.0.1",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
+    "react-three-fiber": "^5.3.11",
     "rusty-pedestrians-engine": "file:../engine/pkg",
-    "three": "^0.120.1"
+    "three": "^0.124.0"
   },
   "devDependencies": {
     "react-app-rewired": "^2.1.6",

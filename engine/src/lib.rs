@@ -13,12 +13,15 @@ mod vec2;
 
 use agent_debug_info::AgentDebugInfo;
 use agents::Agents;
+use navmesh::Navmesh;
 use scenarii::{load_scenario, EmptyScenario, Scenario};
 use vec2::Vec2;
 
 use wasm_bindgen::prelude::*;
 
 use itertools::izip;
+
+use std::io::Cursor;
 
 // When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
 // allocator.
@@ -40,6 +43,7 @@ pub struct RenderedAgent {
 #[wasm_bindgen]
 pub struct Universe {
   agents: Agents,
+  navmesh: Navmesh,
   scenario: Box<dyn Scenario>,
   last_dt: f64,
 }
@@ -51,9 +55,11 @@ impl Universe {
     utils::set_panic_hook();
 
     let empty_scenario = EmptyScenario::new();
+    let (agents, navmesh) = empty_scenario.generate();
 
     Universe {
-      agents: empty_scenario.generate(),
+      agents,
+      navmesh,
       scenario: Box::new(empty_scenario),
       last_dt: 0.,
     }
@@ -63,7 +69,9 @@ impl Universe {
     self.reset();
   }
   pub fn reset(&mut self) {
-    self.agents = self.scenario.generate();
+    let (agents, navmesh) = self.scenario.generate();
+    self.agents = agents;
+    self.navmesh = navmesh;
   }
   pub fn update(&mut self, dt: f64) {
     let neighborhoods = neighborhood::AgentNeighborhood::compute_agents_neighborhood(
@@ -106,7 +114,7 @@ impl Universe {
 
     self.last_dt = dt;
   }
-  pub fn render(&self) -> Box<[f64]> {
+  pub fn render_agents(&self) -> Box<[f64]> {
     izip!(
       self.agents.get_positions().iter(),
       self.agents.get_directions().iter(),
@@ -116,6 +124,14 @@ impl Universe {
     .flat_map(|(p, d, v, &r)| vec![p.x(), p.y(), d.x(), d.y(), v.x(), v.y(), r])
     .collect::<Vec<f64>>()
     .into_boxed_slice()
+  }
+  pub fn render_navmesh(&self) -> String {
+    let mut output = Vec::new();
+    self
+      .navmesh
+      .render_to_obj(&mut Cursor::new(&mut output))
+      .unwrap();
+    String::from_utf8(output).unwrap()
   }
   pub fn render_debug_info(&self, idx_agent: usize) -> String {
     let mut debug_info = AgentDebugInfo::new().agent(self.agents.retrieve_agent(idx_agent));
@@ -180,7 +196,7 @@ mod tests {
     );
     assert_eq!(universe.count_agents(), 4);
     universe
-      .render()
+      .render_agents()
       .iter()
       .zip(vec![
         10.0, 0.0, -1.0, 0.0, 0.0, 0.0, 0.35, 0.0, 10.0, 0.0, -1.0, 0.0, 0.0, 0.35, -10.0, 0., 1.0,
@@ -191,7 +207,7 @@ mod tests {
       universe.update(0.25);
       universe.render_debug_info(0);
     });
-    let end_state = universe.render();
+    let end_state = universe.render_agents();
     // All should have reached their target
     assert_relative_eq!(end_state[0], -10., epsilon = 0.0001);
     assert_relative_eq!(end_state[1], 0., epsilon = 0.0001);
@@ -201,5 +217,15 @@ mod tests {
     assert_relative_eq!(end_state[15], 0., epsilon = 0.0001);
     assert_relative_eq!(end_state[21], 0., epsilon = 0.0001);
     assert_relative_eq!(end_state[22], 10., epsilon = 0.0001);
+
+    assert_eq!(
+      universe.render_navmesh(),
+      "v -15.000 -15.000 0.0\n\
+      v 15.000 -15.000 0.0\n\
+      v 15.000 15.000 0.0\n\
+      v -15.000 15.000 0.0\n\
+      f 1 2 3\n\
+      f 1 3 4\n"
+    );
   }
 }

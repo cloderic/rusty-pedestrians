@@ -3,6 +3,7 @@ mod empty_scenario;
 mod scenario;
 
 use crate::agents::Agents;
+use crate::navmesh::Navmesh;
 use serde::Deserialize;
 
 pub use antipodal_circle::AntipodalCircleScenario;
@@ -17,7 +18,7 @@ enum Scenarii {
 }
 
 impl Scenario for Scenarii {
-  fn generate(&self) -> Agents {
+  fn generate(&self) -> (Agents, Navmesh) {
     match self {
       Scenarii::AntipodalCircle(s) => s.generate(),
       Scenarii::Empty(s) => s.generate(),
