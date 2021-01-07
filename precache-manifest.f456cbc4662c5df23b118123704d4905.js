@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ed79a0fef7a86a927248",
-    "url": "/rusty-pedestrians/87441e6119b08610eb64.module.wasm"
+    "revision": "0c0639d62af760dbbe77",
+    "url": "/rusty-pedestrians/48be3cbc2b9cb085580a.module.wasm"
   },
   {
-    "revision": "eaee81e2fee6c1abf83830c53a2da28d",
+    "revision": "4e7f20ec79dc8bbad624d717f7bb10e2",
     "url": "/rusty-pedestrians/index.html"
   },
   {
@@ -20,15 +20,15 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/rusty-pedestrians/static/js/2.3161db11.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "ed79a0fef7a86a927248",
-    "url": "/rusty-pedestrians/static/js/3.1384201c.chunk.js"
+    "revision": "0c0639d62af760dbbe77",
+    "url": "/rusty-pedestrians/static/js/3.1ab0d7a9.chunk.js"
   },
   {
-    "revision": "5ab3acaa8d92419cb24b",
-    "url": "/rusty-pedestrians/static/js/main.8efcd1b0.chunk.js"
+    "revision": "701559df93ca65754816",
+    "url": "/rusty-pedestrians/static/js/main.74b2d873.chunk.js"
   },
   {
-    "revision": "3ff2a0261dd35430440a",
-    "url": "/rusty-pedestrians/static/js/runtime-main.67d55628.js"
+    "revision": "060f9a9ea44cfc462140",
+    "url": "/rusty-pedestrians/static/js/runtime-main.fe90230c.js"
   }
 ]);
