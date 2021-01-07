@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/rusty-pedestrians/static/js/main.57d1e43c.chunk.js",
-    "main.js.map": "/rusty-pedestrians/static/js/main.57d1e43c.chunk.js.map",
+    "main.js": "/rusty-pedestrians/static/js/main.702f8395.chunk.js",
+    "main.js.map": "/rusty-pedestrians/static/js/main.702f8395.chunk.js.map",
     "runtime-main.js": "/rusty-pedestrians/static/js/runtime-main.88456561.js",
     "runtime-main.js.map": "/rusty-pedestrians/static/js/runtime-main.88456561.js.map",
     "static/css/2.764ccc25.chunk.css": "/rusty-pedestrians/static/css/2.764ccc25.chunk.css",
@@ -11,7 +11,7 @@
     "4bbbf4999cecb0d91910.module.wasm": "/rusty-pedestrians/4bbbf4999cecb0d91910.module.wasm",
     "static/js/3.511b9458.chunk.js.map": "/rusty-pedestrians/static/js/3.511b9458.chunk.js.map",
     "index.html": "/rusty-pedestrians/index.html",
-    "precache-manifest.23796787c6940f9b9e95f8610bf07dfe.js": "/rusty-pedestrians/precache-manifest.23796787c6940f9b9e95f8610bf07dfe.js",
+    "precache-manifest.51c4abcc3c252f88b401dc7e0b3a67d6.js": "/rusty-pedestrians/precache-manifest.51c4abcc3c252f88b401dc7e0b3a67d6.js",
     "service-worker.js": "/rusty-pedestrians/service-worker.js",
     "static/css/2.764ccc25.chunk.css.map": "/rusty-pedestrians/static/css/2.764ccc25.chunk.css.map",
     "static/js/2.e82c46d4.chunk.js.LICENSE.txt": "/rusty-pedestrians/static/js/2.e82c46d4.chunk.js.LICENSE.txt"
@@ -20,6 +20,6 @@
     "static/js/runtime-main.88456561.js",
     "static/css/2.764ccc25.chunk.css",
     "static/js/2.e82c46d4.chunk.js",
-    "static/js/main.57d1e43c.chunk.js"
+    "static/js/main.702f8395.chunk.js"
   ]
 }

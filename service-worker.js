@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/rusty-pedestrians/precache-manifest.23796787c6940f9b9e95f8610bf07dfe.js"
+  "/rusty-pedestrians/precache-manifest.51c4abcc3c252f88b401dc7e0b3a67d6.js"
 );
 
 self.addEventListener('message', (event) => {
