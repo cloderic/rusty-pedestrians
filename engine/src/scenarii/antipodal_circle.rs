@@ -6,35 +6,18 @@ use crate::vec2::Vec2;
 use serde::Deserialize;
 
 #[derive(Clone, Copy, Debug, PartialEq, Deserialize)]
+#[serde(default)]
 pub struct AntipodalCircleScenario {
-  agents_count: usize,
-  radius: f64,
-}
-
-impl AntipodalCircleScenario {
-  pub fn new() -> Self {
-    AntipodalCircleScenario {
-      agents_count: 2,
-      radius: 5.0,
-    }
-  }
-
-  #[allow(dead_code)]
-  pub fn agents_count(mut self, agents_count: usize) -> Self {
-    self.agents_count = agents_count;
-    self
-  }
-
-  #[allow(dead_code)]
-  pub fn radius(mut self, radius: f64) -> Self {
-    self.radius = radius;
-    self
-  }
+  pub agents_count: usize,
+  pub radius: f64,
 }
 
 impl Default for AntipodalCircleScenario {
   fn default() -> Self {
-    AntipodalCircleScenario::new()
+    AntipodalCircleScenario {
+      agents_count: 2,
+      radius: 5.0,
+    }
   }
 }
 
