@@ -11,21 +11,8 @@ serviceWorker.unregister();
 // A dependency graph that contains any wasm must all be imported
 // asynchronously.
 import('rusty-pedestrians-engine')
-  .then(({ Universe }) => {
-    const universe = Universe.new();
-    universe.load_scenario(
-      // JSON.stringify({
-      //   scenario: 'AntipodalCircle',
-      //   agents_count: 9,
-      //   radius: 6,
-      // })
-      JSON.stringify({
-        scenario: 'Corridor',
-        agents_per_side_count: 1,
-        length: 15,
-        width: 1.5,
-      })
-    );
+  .then((engine) => {
+    const universe = engine.Universe.new();
     ReactDOM.render(
       <React.StrictMode>
         <App universe={universe} />
@@ -33,4 +20,6 @@ import('rusty-pedestrians-engine')
       document.getElementById('root')
     );
   })
-  .catch((e) => console.error('Error importing `index.js`:', e));
+  .catch((e) =>
+    console.error('Error importing `rusty-pedestrians-engine`: ', e)
+  );

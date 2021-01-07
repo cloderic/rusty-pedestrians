@@ -66,9 +66,6 @@ impl Universe {
   }
   pub fn load_scenario(&mut self, scenario_data: &str) {
     self.scenario = Box::new(load_scenario(scenario_data));
-    self.reset();
-  }
-  pub fn reset(&mut self) {
     let (agents, navmesh) = self.scenario.generate();
     self.agents = agents;
     self.navmesh = navmesh;

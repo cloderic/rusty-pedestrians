@@ -3,6 +3,7 @@ import chunk from 'lodash.chunk';
 
 const useSimulation = ({
   universe,
+  scenario,
   selectedAgentIdx,
   paused,
   simulationFrequency,
@@ -21,29 +22,28 @@ const useSimulation = ({
       })
     );
     setAgents(agents);
-    if (selectedAgentIdx != null) {
+    if (selectedAgentIdx != null && selectedAgentIdx < agents.length) {
       setSelectedAgentDebugInfo(
         JSON.parse(universe.render_debug_info(selectedAgentIdx))
       );
+    } else {
+      setSelectedAgentDebugInfo(null);
     }
   }, [setAgents, setSelectedAgentDebugInfo, universe, selectedAgentIdx]);
 
-  // Rendered navmesh
-  const [navmeshObj, setNavmeshObj] = useState('');
-
   // Simulation restart
   const [started, setStarted] = useState(false);
-  const reset = useCallback(() => {
-    universe.reset();
+  const [navmeshObj, setNavmeshObj] = useState(false);
+  const restart = useCallback(() => {
+    const scenario_str = JSON.stringify(scenario);
+    universe.load_scenario(scenario_str);
     renderAgents();
-    setStarted(false);
-  }, [universe, renderAgents]);
-
-  // Simulation load effect
-  useEffect(() => {
-    universe.reset();
     setNavmeshObj(universe.render_navmesh());
-  }, [universe, setNavmeshObj]);
+    setStarted(false);
+  }, [universe, renderAgents, scenario]);
+
+  // Scenario changes effect, basically restart.
+  useEffect(restart, [restart]);
 
   // Simulation step effect
   const computeSimulationStep = useCallback(() => {
@@ -76,7 +76,7 @@ const useSimulation = ({
     navmeshObj,
     started,
     paused,
-    reset,
+    restart,
     computeSimulationStep,
   };
 };

@@ -12,6 +12,24 @@ export const DARK_GREY = '#505050';
 export const PEDESTRIAN_1 = '#ff0000';
 export const PEDESTRIAN_2 = '#0000ff';
 
+export const SELECT_THEME = (theme) => {
+  const customTheme = {
+    ...theme,
+    colors: {
+      ...theme.colors,
+      primary: PRIMARY,
+      primary75: lighten(0.25, '#f77976'),
+      primary50: lighten(0.5, '#f77976'),
+      primary25: lighten(0.25, '#f77976'),
+    },
+    spacing: {
+      baseUnit: 2,
+    },
+  };
+  console.log('customTheme', customTheme);
+  return customTheme;
+};
+
 const Stylesheet = () => (
   <Global
     styles={css`
